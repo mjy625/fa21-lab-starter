@@ -5,10 +5,12 @@ def get_airspeed_velocity_of(unladen_swallow):
     return # redacted
 
 def fizzbuzz(num):
-  if num in [3,6,9,12,15,18]: # edit this line
-    print(f"{num}: fizz")
-  if num in [5,10,15,20]: # edit this line
-    print(f"{num}: buzz")
+	if num%15==0:
+		print(f"{num}:fizzbuzz")
+	elif num%5==0:
+		print(f"{num}:buzz")
+	elif num%3==0:
+		print(f"{num}:fizz")
 
 for i in range(1, 20):
   fizzbuzz(i)
