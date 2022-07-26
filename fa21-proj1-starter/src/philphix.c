@@ -80,7 +80,7 @@ void readDictionary(char *dictName) {
     char* value=malloc(fix_size);
     fscanf(pfile,"%s",key);
     fscanf(pfile,"%s",value);
-    if(key[0]==EOF||key[0]==' '||key[0]=='\0')
+    if(key[0]=='\0')
       break;
     insertData(dictionary,(void*)key,(void*)value);
   }
@@ -97,14 +97,13 @@ int replace(){
   char* str=malloc(max_size);
   char buffer='\0';
   int i=0,isEnd=0;
+  char ch;
   while(1){
     for(i;i<max_size;++i){
-      char ch;
-      rewind(stdin);
-      scanf("%c",&ch);
-      if(ch==EOF||ch=='?')
+      char ch=getchar();
+      if(ch==EOF)
         isEnd=1;
-      if(isAlpha(ch))
+      if(isalnum(ch))
         str[i]=ch;
       else{
         str[i]='\0';
@@ -141,7 +140,7 @@ int replace(){
     else printf("%s",origin);
   }
 
-  if(buffer!='\0')
+  if(buffer!='\0'&&buffer!=EOF)
     printf("%c",buffer);
   return isEnd;
 }

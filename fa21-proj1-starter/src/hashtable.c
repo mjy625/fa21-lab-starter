@@ -75,7 +75,7 @@ void *findData(HashTable *table, void *key) {
   int index=table->hashFunction(key),size=table->size;
   if(table->buckets[index%size]==NULL)return NULL;
   HashBucketEntry* p=table->buckets[index%size];
-  while(p!=NULL&&table->equalFunction(p,key))p=p->next;
+  while(p!=NULL&&!table->equalFunction(p->key,key))p=p->next;
   if(p!=NULL)return p->data;
   else return NULL;
 }
