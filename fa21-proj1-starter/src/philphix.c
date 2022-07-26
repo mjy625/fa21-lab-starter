@@ -109,7 +109,7 @@ void readDictionary(char *dictName) {
 int replace(){
   int max_size=60;
   char* str=malloc(max_size);
-  char buffer='\0';
+  char buffer='a';//buffer the very first non-alnum character
   int i=0,isEnd=0;
   char ch;
   while(1){
@@ -156,7 +156,7 @@ int replace(){
     else printf("%s",origin);
   }
 
-  if(buffer!='\0'&&buffer!=EOF)
+  if(buffer!='a'&&buffer!=EOF)
     printf("%c",buffer);
   return isEnd;
 }
