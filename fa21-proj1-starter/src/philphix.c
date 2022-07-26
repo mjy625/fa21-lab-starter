@@ -65,24 +65,42 @@ int main(int argc, char **argv) {
 }
 #endif /* _PHILPHIX_UNITTEST */
 
-
+char* readWord(FILE* pfile){
+  size_t m_size=60;
+  char ch;
+  while(isspace(ch=fgetc(pfile)));
+  if(ch==EOF)return NULL;
+  char* str=malloc(m_size);
+  int pos=1;
+  str[0]=ch;
+  while(1){
+    for(pos;pos<m_size;++pos){
+      ch=fgetc(pfile);
+      if(isspace(ch)||ch==EOF){
+        str[pos]='\0';
+        return str;
+      }
+      else str[pos]=ch;
+    }
+    if(pos==m_size&&str[m_size-1]!='\0'){
+      m_size*=2;
+      str=realloc(str,m_size);
+    }
+  }
+}
 
 /* Task 3 */
 void readDictionary(char *dictName) {
   // -- TODO --
-  fprintf(stderr, "You need to implement the varible length\n");
   FILE* pfile =  fopen(dictName,"r+");
   if(pfile==NULL){
     fprintf(stderr,"Can't open the file");
     exit(61);
   }
-  const int fix_size=6000;
   while(1){
-    char* key=malloc(fix_size);
-    char* value=malloc(fix_size);
-    fscanf(pfile,"%s",key);
-    fscanf(pfile,"%s",value);
-    if(key[0]==EOF||key[0]==' '||key[0]=='\0')
+    char* key=readWord(pfile);
+    char* value=readWord(pfile);
+    if(key==NULL||value==NULL)
       break;
     insertData(dictionary,(void*)key,(void*)value);
   }
@@ -107,8 +125,10 @@ int replace(){
         break;
       }
     }
-    if(i==max_size&&str[max_size-1]!='\0')
+    if(i==max_size&&str[max_size-1]!='\0'){
+      max_size*=2;
       str=realloc(str,max_size*2);
+    }
     else
       break;
   }
