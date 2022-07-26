@@ -65,6 +65,8 @@ int main(int argc, char **argv) {
 }
 #endif /* _PHILPHIX_UNITTEST */
 
+
+
 /* Task 3 */
 void readDictionary(char *dictName) {
   // -- TODO --
@@ -74,22 +76,16 @@ void readDictionary(char *dictName) {
     fprintf(stderr,"Can't open the file");
     exit(61);
   }
-  const int fix_size=60;
+  const int fix_size=6000;
   while(1){
     char* key=malloc(fix_size);
     char* value=malloc(fix_size);
     fscanf(pfile,"%s",key);
     fscanf(pfile,"%s",value);
-    if(key[0]=='\0')
+    if(key[0]==EOF||key[0]==' '||key[0]=='\0')
       break;
     insertData(dictionary,(void*)key,(void*)value);
   }
-}
-
-int isAlpha(char ch){
-  return (ch>='0'&&ch<='9')
-    || (ch>='a'&&ch<='z')
-    || (ch>='A'&&ch<='Z');
 }
 
 int replace(){
