@@ -22,3 +22,17 @@ main:
 
 factorial:
     # YOUR CODE HERE
+    bne a0 x0 calculate
+    addi a0 x0 1
+    jr ra
+calculate:
+    addi sp sp -8
+    sw a0 0(sp)
+    sw ra 4(sp)
+    addi a0 a0 -1
+    jal factorial
+    lw a1 0(sp)
+    lw ra 4(sp)
+    addi sp sp 8
+    mul a0 a0 a1
+    jr ra
